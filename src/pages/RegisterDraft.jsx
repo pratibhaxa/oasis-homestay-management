@@ -1,9 +1,10 @@
 
-import { Box, Button, Link, Stack, TextField, Typography } from '@mui/material';
+import { Box, Button, Stack, TextField, Typography } from '@mui/material';
 import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signOut } from 'firebase/auth';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { auth } from '../config/firebase';
+import { Link } from "react-router-dom";
 
 const Page = () => {
     // const router = useRouter();
@@ -39,7 +40,7 @@ const Page = () => {
                     values.password
                 );
                 // router.push('/');
-                window.open("https://localhost:3001/hello",'_self');
+                window.open("http://localhost:3000/addproperty",'_self');
                 console.log(values.email);
             }
             catch (err) {
