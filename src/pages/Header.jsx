@@ -65,7 +65,7 @@ export const Header = () => {
                             textDecoration: 'none',
                         }}
                     >
-                        Oasis Homestay Management
+                        Oasis Homestay Management App
                     </Typography>
                     <Box
                         sx={{ 
