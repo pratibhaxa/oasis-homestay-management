@@ -43,6 +43,12 @@ export const ViewProperty = () => {
             // format: (value: number) => value.toLocaleString('en-US')
         },
         {
+            id: 'facilities',
+            label: 'Facilities',
+            midWidth: 170,
+            align: 'center'
+        },
+        {
             id: 'viewProperty',
             label: 'View Property',
             midWidth: 170,
@@ -94,6 +100,9 @@ export const ViewProperty = () => {
                                             </TableCell>
                                             <TableCell align='center'>
                                                 {property.num_of_rooms}
+                                            </TableCell>
+                                            <TableCell align='center'>
+                                                {property.facilities}
                                             </TableCell>
                                             <TableCell align='right'>
                                                 <Link to={`/viewproperty/${property.id}`}>
