@@ -15,6 +15,7 @@ export const AddProperty = () => {
             // city: '',
             // country: '',
             numOfRooms: '',
+            facilities: '',
             propertyManagerEmail: ''
         },
 
@@ -36,6 +37,10 @@ export const AddProperty = () => {
                 .min(1, 'Number of Rooms must be greater than 0')
                 .max(10)
                 .required('Please enter number of Rooms'),
+            facilities: Yup
+                .string()
+                .max(500)
+                .required('facilities Available'),
             propertyManagerEmail: Yup
                 .string()
                 .email('Must be a valid email')
@@ -49,6 +54,7 @@ export const AddProperty = () => {
                     property_name: values.propertyName,
                     address: values.address,
                     num_of_rooms: values.numOfRooms,
+                    facilities:values.facilities,
                     property_manager_email: values.propertyManagerEmail,
                     created_by_user: auth?.currentUser?.uid,
                 });
@@ -127,6 +133,17 @@ export const AddProperty = () => {
                                     onBlur={formik.handleBlur}
                                     onChange={formik.handleChange}
                                     value={formik.values.numOfRooms}
+                                />
+                                <TextField 
+                                    error={!!(formik.touched.address && formik.errors.address)}
+                                    fullWidth
+                                    helperText={formik.touched.address && formik.errors.address}
+                                    label="Facilities"
+                                    name="facilities"
+                                    type="text"
+                                    onBlur={formik.handleBlur}
+                                    onChange={formik.handleChange}
+                                    value={formik.values.facilities}
                                 />
                                 <TextField 
                                     error={!!(formik.touched.propertyManagerEmail && formik.errors.propertyManagerEmail)}
