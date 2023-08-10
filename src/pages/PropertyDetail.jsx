@@ -60,6 +60,10 @@ export const PropertyDetail = () => {
                         <Typography variant='p'>{property.num_of_rooms}</Typography>
                     </ListItem>
                     <ListItem>
+                        <Typography variant='h6' sx={{fontSize: "0.45cm"}}>facilities : &nbsp;</Typography>
+                        <Typography variant='p'>{property.facilities}</Typography>
+                    </ListItem>
+                    <ListItem>
                         <Typography variant='h6' sx={{fontSize: "0.45cm"}}>Property Manager : &nbsp;</Typography>
                         <Typography variant='p'>{property.property_manager_email}</Typography>
                     </ListItem>
