@@ -135,9 +135,9 @@ export const AddProperty = () => {
                                     value={formik.values.numOfRooms}
                                 />
                                 <TextField 
-                                    error={!!(formik.touched.address && formik.errors.address)}
+                                    error={!!(formik.touched.facilities && formik.errors.facilities)}
                                     fullWidth
-                                    helperText={formik.touched.address && formik.errors.address}
+                                    helperText={formik.touched.facilities && formik.errors.facilities}
                                     label="Facilities"
                                     name="facilities"
                                     type="text"
