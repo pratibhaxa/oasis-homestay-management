@@ -78,10 +78,6 @@ export const AddGuestForm = () => {
                     created_by_user: auth?.currentUser?.uid,
                 });
                 alert("Updated Successfully");
-                // console.log('startDate');
-                // console.log(startDate);
-                // console.log('startDate.$d');
-                // console.log(startDate.$d);
             }
             catch (err) {
                 console.error(err);

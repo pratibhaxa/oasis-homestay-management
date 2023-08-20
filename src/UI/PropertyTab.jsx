@@ -22,7 +22,7 @@ export const PropertyTab = (props) => {
                     >
                         <Tab value="one" label="Add Guest" to={`/viewproperty/${props.id}/add-guest`} component={Link} />
                         <Tab value="two" label="View Guest" to={`/viewproperty/${props.id}/view-guest`} component={Link} />
-                        <Tab value="three" label="View Guest Demo" to={`/viewproperty/${props.id}/view-guest-demo`} component={Link} />
+                        {/* <Tab value="three" label="View Guest Demo" to={`/viewproperty/${props.id}/view-guest-demo`} component={Link} /> */}
                     </Tabs>
                     <Outlet />
                 </Box>

@@ -4,6 +4,11 @@ import React from "react"
 export const ViewGuestColumns = (props) => {
     const columns = [
         {
+            id: 'guestId',
+            label: 'Guest Id',
+            minWidth: 170
+        },
+        {
             id: 'fullName',
             label: 'Full Name',
             minWidth: 170
@@ -34,14 +39,14 @@ export const ViewGuestColumns = (props) => {
             align: 'center'
         },
         {
-            id: 'purposeVisit',
-            label: 'Purpose of Visit',
+            id: 'roomNumber',
+            label: 'Room  Number',
             midWidth: 170,
             align: 'center'
         },
         {
-            id: 'roomNumber',
-            label: 'Room  Number',
+            id: 'purposeVisit',
+            label: 'Purpose of Visit',
             midWidth: 170,
             align: 'center'
         }
