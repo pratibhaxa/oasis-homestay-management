@@ -1,4 +1,4 @@
-import HomeIcon from '@mui/icons-material/Home';
+// import HomeIcon from '@mui/icons-material/Home';
 import MenuIcon from '@mui/icons-material/Menu';
 import { 
     AppBar, 
@@ -65,7 +65,7 @@ export const Header = () => {
                             textDecoration: 'none',
                         }}
                     >
-                        Oasis Homestay Management App
+                        Oasis Homestay Management
                     </Typography>
                     <Box
                         sx={{ 

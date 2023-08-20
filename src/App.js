@@ -1,44 +1,32 @@
-import { Route, Routes } from "react-router-dom";
-import { AddGuest } from "./pages/AddGuest";
-import { AddProperty } from "./pages/AddProperty";
-import { DateComponent } from "./pages/DateComponent";
-import { Header } from "./pages/Header";
-import { HeaderDemo } from "./pages/HeaderDemo";
-import { Login } from "./pages/Login";
-import { PropertyDetail } from "./pages/PropertyDetail";
-import Register from "./pages/RegisterDraft";
-import { ViewGuest } from "./pages/ViewGuest";
-// import TabPage from "./pages/TabPage";
-import ViewProperty from "./pages/ViewProperty";
-// import { RegisterDemo } from "./pages/Register";
+import React from 'react';
+import { Route, Routes } from 'react-router-dom';
+import Register from './components/Register';
+import { Login } from './components/Login';
+import { AddProperty } from './components/AddProperty';
+import { ViewProperty } from './components/ViewProperty';
+import { Property } from './components/Property';
+import { AddGuestForm } from './forms/AddGuestForm';
+import { ViewGuest } from './components/ViewGuest';
+import { ViewGuestDemo } from './components/ViewGuestDemo';
 
 function App() {
-  return (
-    <Routes>
-      <Route path='/auth/register' Component={Register}/>
-      {/* <Route path='/auth/registerdemo' Component={RegisterDemo}/> */}
-      <Route path='/auth/login' Component={Login}/>
-      <Route path='/addproperty' Component={AddProperty}/>
-      <Route path='/viewproperty' Component={ViewProperty}/>
-      {/* <Route path="/viewproperty/:id" Component={PropertyDetail}/> */}
-        {/* <Route path="add-guest" Component={AddGuest}/> */}
-      {/* </Route> */}
-      <Route path="/header" Component={Header}/>
-      <Route path="/header-demo" Component={HeaderDemo}/>
-      {/* <Route path="/tabpage" Component={TabPage} /> */}
-      {/* <Route path="/nesttab" Component={NestTab} /> */}
-      {/* nested tab */}
-      <Route path="/viewproperty/:id" Component={PropertyDetail}>
-        <Route path="add-guest" Component={AddGuest} />
-        <Route path="view-guest" Component={ViewGuest} />
-      </Route>
-      <Route path="/date" Component={DateComponent}/>
-      {/* <Route path="/courses" element={<Courses />}>
-        <Route path="search" element={<Search />} />
-        <Route path="list" element={<List/>}/>
-      </Route> */}
-    </Routes>
-  );
+    return (
+        <React.Fragment>
+        {/* App Component */}
+            <Routes>
+                <Route path='/auth/register' Component={Register} />
+                <Route path='/auth/login' Component={Login} />
+                <Route path='/addproperty' Component={AddProperty} />
+                <Route path='/viewproperty' Component={ViewProperty} />
+                <Route path="/viewproperty/:id" Component={Property}>
+                    <Route path="add-guest" Component={AddGuestForm} />
+                    <Route path="view-guest" Component={ViewGuest} />
+                    <Route path="view-guest-demo" Component={ViewGuestDemo} />
+                </Route>
+                <Route path="/viewproperty/:id" Component={ViewGuestDemo} />
+            </Routes>
+        </React.Fragment>
+    );
 }
 
 export default App;

@@ -1,26 +1,21 @@
-import { Box, Button, Stack, TextField, Typography } from "@mui/material"
-import { useFormik } from "formik"
-import * as Yup from 'yup';
-import { Link, useParams } from "react-router-dom"
-import { auth, db } from "../config/firebase";
 import { addDoc, collection } from "firebase/firestore";
-import { DateField, LocalizationProvider, MobileDatePicker } from "@mui/x-date-pickers";
+import React, { useState } from "react"
+import { useParams } from "react-router-dom";
+import { auth, db } from "../config/firebase";
+import { useFormik } from "formik";
+import * as Yup from 'yup';
+import { Box, Button, Stack, TextField, Typography } from "@mui/material";
+import { LocalizationProvider, MobileDatePicker } from "@mui/x-date-pickers";
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
-import dayjs from "dayjs";
-import moment from "moment";
-import { PhotoCamera } from "@mui/icons-material";
-import IconButton from '@mui/material/IconButton';
-import { useState } from "react";
 
-export const AddGuest = () => {
+export const AddGuestForm = () => {
     const { id } = useParams();
     const guestsCollectionRef = collection(db, "guests");
 
     const phoneRegExp = /^[6-9]\d{9}$/;
 
-    const [startDate, setStartDate] = useState(new Date());
-    const [endDate, setEndDate] = useState(new Date());
+    const [startDate, setStartDate] = useState(null);
+    const [endDate, setEndDate] = useState(null);
 
     const formik = useFormik({
         initialValues: {
@@ -65,14 +60,8 @@ export const AddGuest = () => {
                 .required('Room Number is required'),
         }),
         
-
         onSubmit: async (values, helpers) => {
-            
-
-            // let dateOfCheckinTS = dateOfCheckin => Date.parse(dateOfCheckin)/1000;
-            // let dateOfCheckoutTS = dateOfCheckout => Date.parse(dateOfCheckout)/1000;
             try{
-                
                 await addDoc(guestsCollectionRef, {
                     full_name: values.fullName,
                     phone_number: values.phoneNumber,
@@ -89,18 +78,19 @@ export const AddGuest = () => {
                     created_by_user: auth?.currentUser?.uid,
                 });
                 alert("Updated Successfully");
-                console.log('startDate');
-                console.log(startDate);
-                console.log('startDate.$d');
-                console.log(startDate.$d);
+                // console.log('startDate');
+                // console.log(startDate);
+                // console.log('startDate.$d');
+                // console.log(startDate.$d);
             }
             catch (err) {
                 console.error(err);
             }
         }
-    })
+    });
+
     return (
-        <div>
+        <React.Fragment>
             <Box
             component="main"
                 sx={{
@@ -269,6 +259,6 @@ export const AddGuest = () => {
                     </div>
                 </Box>
             </Box>
-        </div>
+        </React.Fragment>
     )
-}
+};
