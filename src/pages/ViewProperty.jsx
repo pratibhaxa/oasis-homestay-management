@@ -51,6 +51,7 @@ export const ViewProperty = () => {
     ]
 
     useEffect(() => {
+    // Using
         getPropertyList();
     }, []);
 
