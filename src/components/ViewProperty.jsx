@@ -25,7 +25,7 @@ export const ViewProperty = (props) => {
     };
 
     useEffect(() => {
-      
+        // use effect
         getPropertyList();
     }, []);
 
