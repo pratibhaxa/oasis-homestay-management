@@ -2,22 +2,39 @@ import React, { useEffect, useState } from "react"
 import { Header } from "./Header";
 import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material";
 import { collection, getDocs } from "firebase/firestore";
-import { db } from "../config/firebase";
+import { auth, db } from "../config/firebase";
 import { PropertyList } from "./PropertyList";
 import { ViewPropertyColumns } from "../UI/ViewPropertyColumns";
 
-export const ViewProperty = (props) => {
+export const ViewProperty = () => {
     const [propertyList, setPropertyList]  = useState([]);
     const propertiesCollectionRef = collection(db, "properties");
-
+    
     const getPropertyList  = async () => {
+        
         try {
+            
             const data = await getDocs(propertiesCollectionRef);
             const filteredData = data.docs.map((doc) => ({
                 ...doc.data(),
                 id: doc.id
             }));
-            setPropertyList(filteredData);
+            const res = [];
+            for (var i = 0; i < filteredData.length; i++) { 
+                let obj = filteredData[i];
+               
+                for (let key in obj) { 
+                    if(obj['property_manager_email']===auth?.currentUser?.email){
+                        res.push(obj);
+                        break;
+                    }
+                 
+                }
+              }
+              
+            setPropertyList(res);
+            
+           
         }
         catch (err) {
             console.error(err);
