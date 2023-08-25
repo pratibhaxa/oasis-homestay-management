@@ -1,5 +1,5 @@
-import React from 'react';
-import { Route, Routes } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { Navigate, Route, Routes } from 'react-router-dom';
 import Register from './components/Register';
 import { Login } from './components/Login';
 import { AddProperty } from './components/AddProperty';
@@ -8,8 +8,21 @@ import { Property } from './components/Property';
 import { AddGuestForm } from './forms/AddGuestForm';
 import { ViewGuest } from './components/ViewGuest';
 import { ViewGuestDemo } from './components/ViewGuestDemo';
+import { auth } from './config/firebase';
+
 
 function App() {
+    // const [validUser, setValidUser] = useState(false);
+
+    // const user = auth?.currentUser?.email;
+    // if (user !== null) {
+    //     setValidUser(true);
+    // }
+    
+    // if (!validUser) {
+    //     <Navigate to='/auth/login' />
+    // }
+
     return (
         <React.Fragment>
         {/* App Component */}

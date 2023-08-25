@@ -2,13 +2,15 @@ import React, { useEffect, useState } from "react"
 import { Header } from "./Header";
 import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material";
 import { collection, getDocs } from "firebase/firestore";
-import { db } from "../config/firebase";
+import { auth, db } from "../config/firebase";
 import { PropertyList } from "./PropertyList";
 import { ViewPropertyColumns } from "../UI/ViewPropertyColumns";
 
 export const ViewProperty = (props) => {
     const [propertyList, setPropertyList]  = useState([]);
     const propertiesCollectionRef = collection(db, "properties");
+
+    const emailId = auth?.currentUser?.email;
 
     const getPropertyList  = async () => {
         try {
@@ -17,7 +19,24 @@ export const ViewProperty = (props) => {
                 ...doc.data(),
                 id: doc.id
             }));
-            setPropertyList(filteredData);
+            // setPropertyList(filteredData);
+            // const data2 = filteredData.filter((item) => item === emailId);
+            // console.log('filteredData', filteredData);
+
+            const res = [];
+            for (var i = 0; i < filteredData.length; i++) { 
+                let obj = filteredData[i];
+
+                for (let key in obj) { 
+                    if(obj['property_manager_email']===auth?.currentUser?.email){
+                        res.push(obj);
+                        break;
+                    }
+
+                }
+              }
+
+            setPropertyList(res);
         }
         catch (err) {
             console.error(err);
@@ -45,7 +64,10 @@ export const ViewProperty = (props) => {
                             {
                                 propertyList.map((property) => {
                                     return (
-                                        <PropertyList property = {property} />
+                                        <PropertyList 
+                                            property = {property} 
+                                            // facility = {property.facilities}
+                                        />
                                     )
                                 })
                             }

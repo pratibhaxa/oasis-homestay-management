@@ -4,8 +4,11 @@ import { useFormik } from "formik";
 import React from "react";
 import * as Yup from 'yup';
 import { auth } from "../config/firebase";
+import { useNavigate } from 'react-router-dom';
 
 export const LoginForm = (props) => {
+    const navigate = useNavigate();
+
     const formik = useFormik({
         initialValues: {
             email: '',
@@ -31,7 +34,8 @@ export const LoginForm = (props) => {
                     values.email,
                     values.password
                 );
-                window.open("http://localhost:3001/addproperty",'_self');
+                navigate('/addproperty');
+                // window.open("http://localhost:3001/addproperty",'_self');
                 console.log(values.email);
             }
             catch (err) {
