@@ -55,7 +55,7 @@ export const RegisterForm = () => {
                         error={!!(formik.touched.email && formik.errors.email)}
                         fullWidth
                         helperText={formik.touched.email && formik.errors.email}
-                        label="Email Id"
+                        label="Email Id" 
                         name="email"
                         type="email"
                         onBlur={formik.handleBlur}
