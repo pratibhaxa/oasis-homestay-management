@@ -13,37 +13,30 @@ export const ViewProperty = () => {
     const getPropertyList  = async () => {
         
         try {
-            
             const data = await getDocs(propertiesCollectionRef);
             const filteredData = data.docs.map((doc) => ({
                 ...doc.data(),
                 id: doc.id
             }));
-            const res = [];
+            const matchingProperties = [];
             for (var i = 0; i < filteredData.length; i++) { 
                 let obj = filteredData[i];
-               
-                for (let key in obj) { 
+               for (let key in obj) { 
                     if(obj['property_manager_email']===auth?.currentUser?.email){
-                        res.push(obj);
+                        matchingProperties.push(obj);
                         break;
                     }
-                 
-                }
+                 }
               }
-              
-            setPropertyList(res);
-            
-           
-        }
+              setPropertyList(matchingProperties);
+            }
         catch (err) {
             console.error(err);
         }
     };
 
     useEffect(() => {
-      
-        getPropertyList();
+      getPropertyList();
     }, []);
 
     return (
