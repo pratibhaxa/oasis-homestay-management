@@ -21,12 +21,9 @@ export const ViewProperty = () => {
             const matchingProperties = [];
             for (var i = 0; i < filteredData.length; i++) { 
                 let obj = filteredData[i];
-               for (let key in obj) { 
                     if(obj['property_manager_email']===auth?.currentUser?.email){
                         matchingProperties.push(obj);
-                        break;
                     }
-                 }
               }
               setPropertyList(matchingProperties);
             }
