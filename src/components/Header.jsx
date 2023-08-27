@@ -14,31 +14,48 @@ import {
     Typography 
 } from "@mui/material"
 import React, { useState } from "react";
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 import { auth } from '../config/firebase';
+import { signOut } from 'firebase/auth';
+import { useNavigate } from 'react-router-dom';
 
 const pages = ['Products', 'Pricing', 'Blog'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 export const Header = () => {
+    const navigate = useNavigate();
+
     const [anchorElNav, setAnchorElNav] = React.useState(null);
     const [anchorElUser, setAnchorElUser] = React.useState(null);
 
     const handleOpenNavMenu = (event) => {
         setAnchorElNav(event.currentTarget)
     }
-      const handleOpenUserMenu = (event) => {
+    const handleOpenUserMenu = (event) => {
         setAnchorElUser(event.currentTarget);
         // console.log(auth?.currentUser?.email)
-      };
+    };
     
-      const handleCloseNavMenu = () => {
+    const handleCloseNavMenu = () => {
         setAnchorElNav(null);
-      };
+    };
     
-      const handleCloseUserMenu = () => {
+    const handleCloseUserMenu = () => {
         setAnchorElUser(null);
-      };
+    };
+
+    const logout = async () => {
+        try {
+            await signOut(auth);
+            // <Navigate to="/auth/login" />
+            navigate('/auth/login');
+            // history.push ('./auth/login');
+            // window.open("http://localhost:3000/auth/login",'_self');
+        }
+        catch (err) {
+            console.error(err);
+        }
+    };
 
     return (
         <AppBar position="fixed" sx={{ background: 'teal', position: 'fixed', top: 0 , left : 0,  margin: 0 }}>
@@ -54,7 +71,7 @@ export const Header = () => {
                         variant="h6"
                         noWrap = 'true'
                         component="a"
-                        href="/header"
+                        href=""
                         sx={{
                             mr: 2,
                             display: { xs: 'none', md: 'flex' },
@@ -65,7 +82,7 @@ export const Header = () => {
                             textDecoration: 'none',
                         }}
                     >
-                        Oasis Homestay Management
+                        StayEye
                     </Typography>
                     <Box
                         sx={{ 
@@ -129,7 +146,7 @@ export const Header = () => {
                             textDecoration: 'none',
                         }}
                     >
-                        Oasis Homestay Management
+                        StayEye
                     </Typography>
                     <Box
                         sx={{
@@ -159,7 +176,7 @@ export const Header = () => {
                     >
                         <Tooltip title="Open settings">
                             <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }} >
-                                <Avatar alt="Shivam Parashar" src=""/>
+                                <Avatar alt="User Image" src=""/>
                             </IconButton>
                         </Tooltip>
                         <Menu
@@ -178,7 +195,13 @@ export const Header = () => {
                             open={Boolean(anchorElUser)}
                             onClose={handleCloseUserMenu}
                         >
-                            &nbsp; Hi, {auth?.currentUser?.email} &nbsp; 
+                            <Typography>
+                                &nbsp; Hi, {auth?.currentUser?.email} &nbsp;
+                            </Typography> 
+                            <Typography align='center'>
+                                <Button onClick={logout}>Logout</Button>
+                            </Typography>
+                            
                         </Menu>
                     </Box>
                 </Toolbar>

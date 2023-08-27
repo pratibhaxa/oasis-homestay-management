@@ -53,7 +53,10 @@ export const ViewProperty = () => {
                             {
                                 propertyList.map((property) => {
                                     return (
-                                        <PropertyList property = {property} />
+                                        <PropertyList 
+                                            property = {property} 
+                                            // facility = {property.facilities}
+                                        />
                                     )
                                 })
                             }
