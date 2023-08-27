@@ -4,8 +4,11 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../config/firebase";
+import { useNavigate } from "react-router-dom";
 
 export const RegisterForm = () => {
+    const navigate = useNavigate();
+
     const formik = useFormik({
         initialValues: {
             email: '',
@@ -31,7 +34,8 @@ export const RegisterForm = () => {
                     values.email,
                     values.password
                 );
-                window.open("http://localhost:3001/addproperty",'_self');
+                navigate('/auth/login');
+                // window.open("http://localhost:3001/addproperty",'_self');
                 console.log(values.email);
             }
             catch (err) {
@@ -51,7 +55,7 @@ export const RegisterForm = () => {
                         error={!!(formik.touched.email && formik.errors.email)}
                         fullWidth
                         helperText={formik.touched.email && formik.errors.email}
-                        label="Email Id"
+                        label="Email Id" 
                         name="email"
                         type="email"
                         onBlur={formik.handleBlur}

@@ -1,11 +1,22 @@
-import { Button, Stack, TextField, Typography } from "@mui/material"
+import { Button, Select, Stack, TextField, Typography } from "@mui/material"
 import { addDoc, collection } from "firebase/firestore";
 import React from "react"
 import { auth, db } from "../config/firebase";
 import { useFormik } from "formik";
 import * as Yup from 'yup';
+import { AddPropertySelectField } from "../UI/AddPropertySelectField";
+import { useState } from 'react';
+import { useEffect, useReducer } from 'react';
 
-export const AddPropertyForm  = () => {
+export const AddPropertyForm = () => {
+    const [facilityList, setFacilityList] = useState(null); 
+    const emailId = auth?.currentUser?.email;
+
+    const getFacility = (item) => {
+        setFacilityList(item);
+    }
+    // console.log(facilityList);
+
     const propertiesCollectionRef = collection(db, "properties");
     const formik = useFormik({
         initialValues: {
@@ -36,10 +47,10 @@ export const AddPropertyForm  = () => {
                 .min(1, 'Number of Rooms must be greater than 0')
                 .max(10)
                 .required('Please enter number of Rooms'),
-            facilities: Yup
-                .string()
-                .max(500)
-                .required('facilities Available'),
+            // facilities: Yup
+            //     .array()
+            //     .max(500)
+            //     .required('facilities Available'),
             propertyManagerEmail: Yup
                 .string()
                 .email('Must be a valid email')
@@ -53,7 +64,7 @@ export const AddPropertyForm  = () => {
                     property_name: values.propertyName,
                     address: values.address,
                     num_of_rooms: values.numOfRooms,
-                    facilities: values.facilities,
+                    facilities: facilityList,
                     property_manager_email: values.propertyManagerEmail,
                     created_by_user: auth?.currentUser?.uid,
                 });
@@ -102,7 +113,7 @@ export const AddPropertyForm  = () => {
                         onChange={formik.handleChange}
                         value={formik.values.numOfRooms}
                     />
-                    <TextField 
+                    {/* <TextField 
                         error={!!(formik.touched.facilities && formik.errors.facilities)}
                         fullWidth
                         helperText={formik.touched.facilities && formik.errors.facilities}
@@ -112,7 +123,8 @@ export const AddPropertyForm  = () => {
                         onBlur={formik.handleBlur}
                         onChange={formik.handleChange}
                         value={formik.values.facilities}
-                    />
+                    /> */}
+                    <AddPropertySelectField getFacility = {getFacility} />
                     <TextField 
                         error={!!(formik.touched.propertyManagerEmail && formik.errors.propertyManagerEmail)}
                         fullWidth
@@ -124,6 +136,14 @@ export const AddPropertyForm  = () => {
                         onChange={formik.handleChange}
                         value={formik.values.propertyManagerEmail}
                     />
+                    {/* <TextField
+                        id="outlined-read-only-input"
+                        label="Read Only"
+                        defaultValue={auth?.currentUser?.email}
+                        InputProps={{
+                            readOnly: true,
+                        }}
+                    /> */}
                 </Stack>
                 {formik.errors.submit && (
                     <Typography

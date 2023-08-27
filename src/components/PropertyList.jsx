@@ -1,8 +1,10 @@
-import { Button, TableCell, TableRow } from "@mui/material";
+import { Button, Chip, TableCell, TableRow } from "@mui/material";
 import React from "react"
 import { Link } from "react-router-dom";
 
 export const PropertyList = (props) => {
+    const facility = props.property.facilities;
+    console.log(props.property.property_name, facility);
     return (
         <React.Fragment>
             <TableRow hover role='checkbox'>
@@ -16,7 +18,15 @@ export const PropertyList = (props) => {
                     {props.property.num_of_rooms}
                 </TableCell>
                 <TableCell align='center'>
-                    {props.property.facilities}
+                    {
+                        facility.map(item => 
+                        <Chip
+                            clickable
+                            key={item} 
+                            label={item} 
+                        />
+                    )
+                    }
                 </TableCell>
                 <TableCell align='right'>
                     <Link to={`/viewproperty/${props.property.id}`}>
