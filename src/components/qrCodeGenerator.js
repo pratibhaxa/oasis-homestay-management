@@ -2,7 +2,7 @@ import { rapidApiConfig } from "../config/genericConfig.js";
 
 import axios from "axios";
 
-const generateQR = async (inputText,inputSize, imageType) => {
+const generateQR = async (inputText, inputSize, imageType) => {
   const options = {
     method: "GET",
     url: "https://qrcodeutils.p.rapidapi.com/qrcodefree",
@@ -21,18 +21,16 @@ const generateQR = async (inputText,inputSize, imageType) => {
 
   try {
     const response = await axios.request(options);
-    return response.data;
+    return response;
   } catch (err) {
     console.error(err);
     throw err;
   }
 };
 
-(async () => {
-  try {
-    const outputResponse = await generateQR("https://www.youtube.com", "150", "svg");
-    console.log(outputResponse);
-  } catch (error) {
-    console.error("Error generating QR code:", error);
-  }
-})();
+const outputResponse = await generateQR(
+  "https://www.youtube.com",
+  "150",
+  "svg"
+);
+console.log(outputResponse);
