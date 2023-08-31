@@ -1,35 +1,36 @@
-import { rapidApiConfig } from '../config/genericConfig';
+import { rapidApiConfig } from "../config/genericConfig.js";
 
-import axios from 'axios';
+import axios from "axios";
 
-const generateQR = async (inputText,imageType) => {
+const generateQR = async (inputText, inputSize, imageType) => {
+  const options = {
+    method: "GET",
+    url: "https://qrcodeutils.p.rapidapi.com/qrcodefree",
+    params: {
+      text: inputText,
+      validate: "true",
+      size: inputSize + " " + inputSize,
+      type: imageType,
+      level: "M",
+    },
+    headers: {
+      "X-RapidAPI-Key": rapidApiConfig.apiKey,
+      "X-RapidAPI-Host": rapidApiConfig.host,
+    },
+  };
 
-const options = {
-  method: 'GET',
-  url: 'https://qrcodeutils.p.rapidapi.com/qrcodefree',
-  params: {
-    text: inputText,
-    validate: 'true',
-    size: '150',
-    type: imageType,
-    level: 'M'
-  },
-  headers: {
-    'X-RapidAPI-Key': rapidApiConfig.apiKey,
-    'X-RapidAPI-Host': rapidApiConfig.host
+  try {
+    const response = await axios.request(options);
+    return response;
+  } catch (err) {
+    console.error(err);
+    throw err;
   }
-  
 };
 
-try {
-	const response = await axios.request(options);
-  console.log(typeof(response.data));
-	// console.log(response.data);
-} catch (err) {
-	console.error(err);
-}
-
-}
-
-
-generateQR("https://www.youtube.com","svg");
+const outputResponse = await generateQR(
+  "https://www.youtube.com",
+  "150",
+  "svg"
+);
+console.log(outputResponse);
