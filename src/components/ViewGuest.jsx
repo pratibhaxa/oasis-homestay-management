@@ -28,10 +28,17 @@ export const ViewGuest = (props) => {
 
     const getGuestList  = async () => {
         try {
-            const data = await getDocs(guestsCollectionRef);
-            console.log(data);
+            // const data = await getDocs(guestsCollectionRef);
+            // console.log(data);
+            
+            
+            const querySnapshot = await getDocs(
+                query(guestsCollectionRef, where("property_id", "==", id))
+            );
 
-            const filteredData = data.docs.map((doc) => ({
+
+
+            const filteredData = querySnapshot.docs.map((doc) => ({
                 ...doc.data(),
                 id: doc.id
             }));
