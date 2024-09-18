@@ -37,6 +37,7 @@ export const LoginForm = (props) => {
                 navigate('/addproperty');
                 // window.open("http://localhost:3001/addproperty",'_self');
                 console.log(values.email);
+                localStorage.setItem("email", values.email);
             }
             catch (err) {
                 console.error(err);

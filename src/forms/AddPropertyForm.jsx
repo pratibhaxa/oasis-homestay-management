@@ -134,7 +134,7 @@ export const AddPropertyForm = () => {
                         type="email"
                         onBlur={formik.handleBlur}
                         onChange={formik.handleChange}
-                        value={formik.values.propertyManagerEmail}
+                        value={localStorage.getItem("email")}
                     />
                     {/* <TextField
                         id="outlined-read-only-input"
