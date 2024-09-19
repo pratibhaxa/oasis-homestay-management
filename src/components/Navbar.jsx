@@ -1,14 +1,27 @@
-import React, { useState } from "react";
-import { Button, Grid, Menu, Space, theme, Typography } from "antd";
+import React, { useEffect, useState } from "react";
+import { Avatar, Button, Dropdown, Grid, Menu, Space, theme, Typography } from "antd";
 import { MenuOutlined } from "@ant-design/icons";
-// import Logo from "../../assets/logo"; // You can find the code for the Logo here: https://www.antblocksui.com/blocks/navbars
 import houseIcon from "./../assests/houseIcon.svg";
 import { useNavigate } from "react-router-dom";
 
 const { useToken } = theme;
 const { useBreakpoint } = Grid;
 
-export default function Navbar() {
+const items = [
+    {
+        label: "Profile",
+        key: '0',
+    },
+    {
+        type: 'divider',
+    },
+    {
+        label: 'Logout',
+        key: '3',
+    },
+];
+
+export const Navbar = ({ current, setCurrent }) => {
     const navigate = useNavigate();
     const { token } = useToken();
     const screens = useBreakpoint();
@@ -42,9 +55,9 @@ export default function Navbar() {
         },
     ];
 
-    const [current, setCurrent] = useState("dashboard");
     const onClick = (e) => {
-        console.log("click ", e);
+        localStorage.setItem("currentNavbarItem", e.key);
+        console.log("click ", e.key);
         setCurrent(e.key);
         navigate('/' + e.key);
     };
@@ -88,6 +101,14 @@ export default function Navbar() {
         },
     };
 
+    useEffect(() => {
+        const location = window.location.href;
+        const pathSegments = location.split("/");
+        const currentPath = pathSegments[3];
+        setCurrent(currentPath);
+    }, [current]);
+    
+
     return (
         <nav style={styles.header}>
             <div style={styles.container}>
@@ -109,8 +130,16 @@ export default function Navbar() {
                     />
                 </div>
                 <Space>
-                    {screens.md ? <Button type="text">Log in</Button> : ""}
-                    <Button type="primary">Sign up</Button>
+                    <Dropdown
+                        menu={{ items }}
+                        trigger={['hover']}
+                    >
+                        <a onClick={(e) => e.preventDefault()}>
+                        <Space>
+                            <Avatar>{localStorage.getItem("email") ? localStorage.getItem("email")[0].toUpperCase() : "U"}</Avatar>
+                        </Space>
+                        </a>
+                    </Dropdown>
                 </Space>
             </div>
         </nav>

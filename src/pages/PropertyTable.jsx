@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { Button, Divider, Table, Typography } from "antd";
+import { Table } from "antd";
 import TablePagination from "@mui/material/TablePagination";
 import { data } from "./data";
 import { collection, getDocs } from "firebase/firestore";
 import { auth, db } from "../config/firebase";
-import Navbar from "../components/Navbar";
 
 const columns = [
     {
@@ -60,7 +59,7 @@ export const PropertyTable = () => {
         getPropertyList();
     }, []);
 
-    console.log("propertyList: ", propertyList);
+    // console.log("propertyList: ", propertyList);
 
     const [page, setPage] = React.useState(0); // Track the current page
     const [rowsPerPage, setRowsPerPage] = React.useState(5); // Track rows per page
@@ -86,13 +85,6 @@ export const PropertyTable = () => {
 
     return (
         <>
-            <Navbar />
-            <div style={{ display: "flex", justifyContent: "flex-end" }}>
-                <Button size="default">Add Listing</Button>
-            </div>
-            <Divider orientation="left">
-                <Typography>Properties</Typography>
-            </Divider>
             <Table
                 columns={columns}
                 dataSource={paginatedData} // Display only the paginated data

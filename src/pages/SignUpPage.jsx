@@ -25,7 +25,6 @@ export default function SignUpPage() {
                 values.password
             );
             navigate('/auth/login');
-            // window.open("http://localhost:3001/addproperty",'_self');
             console.log(values.email);
         }
         catch (err) {
